@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+  <style>
+    /* Reset margin/padding and set background */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #a1d8c7;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    /* Main title */
+    h1 {
+      font-weight: bold;
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    /* Container to hold left (weather info) and right (search box) */
+    .weather-container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    /* Left panel styling */
+    .left-panel {
+      text-align: left;
+    }
+
+    .left-panel .temp {
+      font-size: 64px;
+      font-weight: 300;
+    }
+
+    .left-panel .city {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .left-panel .time {
+      font-size: 20px;
+      margin: 5px 0;
+    }
+
+    /* Right panel: input + button */
+    .right-panel input {
+      padding: 8px 12px;
+      border: none;
+      border-bottom: 2px solid white;
+      background: transparent;
+      color: white;
+      outline: none;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    .right-panel button {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid #fff;
+      background: white;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .right-panel button:hover {
+      background: #e3e3e3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Weather App</h1>
+
+  <div class="weather-container">
+    <!-- Left panel: where random temperature & current time will show -->
+    <div class="left-panel" id="weather">
+      <div class="temp">--</div>
+      <div class="city">City</div>
+      <div class="time">--:-- --</div>
+    </div>
+
+    <!-- Right panel: city input + button -->
+    <div class="right-panel">
+      <input type="text" placeholder="Enter city" id="cityInput" />
+      <button onclick="showRandomTemp()">Search Button</button>
+    </div>
+  </div>
+
+  <script>
+    function showRandomTemp() {
+      const city = document.getElementById("cityInput").value.trim();
+      if (!city) {
+        alert("Please enter a city name.");
+        return;
+      }
+
+      // Generate a random integer between 25 and 45 (inclusive)
+      const randomTemp = Math.floor(Math.random() * (45 - 25 + 1)) + 25;
+
+      // Get current local time & weekday
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const dayName = now.toLocaleString('default', { weekday: 'long' });
+
+      // Update the UI
+      document.querySelector('.left-panel .temp').textContent = randomTemp;
+      document.querySelector('.left-panel .city').textContent = city;
+      document.querySelector('.left-panel .time').textContent = `${hours}:${minutes} ${dayName}`;
+    }
+  </script>
+
+</body>
+</html>
